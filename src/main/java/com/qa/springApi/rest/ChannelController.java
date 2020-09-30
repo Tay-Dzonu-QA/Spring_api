@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.springApi.dto.ChannelDTO;
+import com.qa.springApi.persistence.domain.Channel;
 import com.qa.springApi.service.ChannelService;
 
 @RestController
@@ -30,9 +31,9 @@ public class ChannelController {
 	}
 	
 	@PostMapping("/create")
-	public ResponseEntity<ChannelDTO> create(@RequestBody ChannelDTO channelDTO){
-		ChannelDTO created =this.service.create(channelDTO);
-		return new ResponseEntity<>(created,HttpStatus.CREATED);
+	public ResponseEntity<ChannelDTO> create(@RequestBody Channel dto){
+//		ChannelDTO created =this.service.create(channelDTO);
+		return new ResponseEntity<>(this.service.create(dto),HttpStatus.CREATED);
 	}
 	@GetMapping("/read")
 	public ResponseEntity<List<ChannelDTO>> read(){
@@ -47,8 +48,8 @@ public class ChannelController {
 	@PutMapping("/update/{id}")
 	public ResponseEntity<ChannelDTO> update(@PathVariable Long id,
 			@RequestBody ChannelDTO channelDTO){
-		ChannelDTO updated = this.service.update(channelDTO, id);
-		return new ResponseEntity<>(updated,HttpStatus.ACCEPTED);
+//		ChannelDTO updated = this.service.update(channelDTO, id);
+		return new ResponseEntity<>(this.service.update(channelDTO, id),HttpStatus.ACCEPTED);
 	}
 	
 	@DeleteMapping("/delete/{id}")

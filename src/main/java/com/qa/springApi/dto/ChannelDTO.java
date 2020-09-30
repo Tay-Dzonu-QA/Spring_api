@@ -1,5 +1,6 @@
 package com.qa.springApi.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -17,10 +18,10 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class ChannelDTO {
 	
-	private long id;
+	private Long id;
 	private String name;
-	private int number;
-	private List<TvShowDTO> tvShows;
+	private Integer number;
+	private List<TvShowDTO> tvShows = new ArrayList<>();
 //	public ChannelDTO(long id, String name, int number, List<TvShowDTO> tvShows) {
 //		super();
 //		this.id = id;

@@ -17,7 +17,7 @@ public class TvShowDTO {
 
 	private Long id;
 	private String name;
-	private int runTimeMins;
+	private Integer runTimeMins;
 	private String genre;
 //	public TvShowDTO(Long id, String name, int runTimeMins, String genre) {
 //		super();

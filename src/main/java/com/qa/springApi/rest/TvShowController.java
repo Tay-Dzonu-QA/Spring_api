@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.springApi.dto.TvShowDTO;
+import com.qa.springApi.persistence.domain.TvShow;
 import com.qa.springApi.service.TvShowService;
 
 @RestController
@@ -30,9 +31,9 @@ public class TvShowController {
 	}
 	
 	@PostMapping("/create")
-	public ResponseEntity<TvShowDTO> create(@RequestBody TvShowDTO tvShowDTO){
-		TvShowDTO created =this.service.create(tvShowDTO);
-		return new ResponseEntity<>(created,HttpStatus.CREATED);
+	public ResponseEntity<TvShowDTO> create(@RequestBody TvShow tvShow){
+//		TvShowDTO created =this.service.create(tvShowDTO);
+		return new ResponseEntity<>(this.service.create(tvShow),HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/read")

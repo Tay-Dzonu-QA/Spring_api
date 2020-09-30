@@ -1,6 +1,5 @@
 package com.qa.springApi.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +19,7 @@ public class ChannelService {
 	private ChannelRepo repo;
 	private ModelMapper mapper;
 
-	//@Autowired
+	@Autowired
 	public ChannelService(ChannelRepo repo, ModelMapper mapper) {
 		super();
 		this.repo = repo;
@@ -31,13 +30,13 @@ public class ChannelService {
 		return this.mapper.map(channel, ChannelDTO.class);
 	}
 
-	private Channel mapFromDTO(ChannelDTO channelDTO) {
-		return this.mapper.map(channelDTO, Channel.class);
-	}
+//	private Channel mapFromDTO(ChannelDTO channelDTO) {
+//		return this.mapper.map(channelDTO, Channel.class);
+//	}
 
-	public ChannelDTO create(ChannelDTO channelDTO) {
-		Channel toSave = this.mapFromDTO(channelDTO);
-		Channel saved = this.repo.save(toSave);
+	public ChannelDTO create(Channel channel) {
+//		Channel toSave = this.mapFromDTO(channelDTO);
+		Channel saved = this.repo.save(channel);
 		return mapToDTO(saved);
 	}
 
@@ -52,8 +51,8 @@ public class ChannelService {
 
 	public ChannelDTO update(ChannelDTO channelDTO,Long id) {
 		Channel toUpdate = this.repo.findById(id).orElseThrow(ChannelNotFoundException::new);
-		SAPIBeanUtils.mergeObject(channelDTO, toUpdate);
-		return this.mapToDTO(toUpdate);
+		SAPIBeanUtils.mergeNotNull(channelDTO, toUpdate);
+		return this.mapToDTO(this.repo.save(toUpdate));
 	}
 
 	public boolean delete(Long id) {

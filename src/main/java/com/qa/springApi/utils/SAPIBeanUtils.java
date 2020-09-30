@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SAPIBeanUtils {
 
-	public static void mergeObject(Object source,Object target) {
-		BeanUtils.copyProperties(source, target,getNullPropertyNames(source));
+	public static void mergeNotNull(Object source, Object target) {
+        BeanUtils.copyProperties(source, target, getNullPropertyNames(source));
     }
 
     private static String[] getNullPropertyNames(Object source) {

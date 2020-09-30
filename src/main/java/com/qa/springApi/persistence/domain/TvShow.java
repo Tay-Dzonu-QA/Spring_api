@@ -3,6 +3,7 @@ package com.qa.springApi.persistence.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
@@ -25,8 +26,8 @@ import lombok.ToString;
 public class TvShow {
 
 	@Id
-	@GeneratedValue
-	private long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@Column(name = "tv_show_name", unique = true)
 	@NotNull
@@ -34,14 +35,14 @@ public class TvShow {
 	private String name;
 
 	@Column(name = "run_time_mins")
-	private int runTimeMins;
+	private Integer runTimeMins;
 
 	@Column(name = "genre")
 	@NotNull
 	@Size(min = 1, max = 60)
 	private String genre;
 	
-	@ManyToOne(targetEntity = Channel.class)
+	@ManyToOne//(targetEntity = Channel.class)
 	private Channel channel;
 
 	public TvShow(@NotNull @Size(min = 1, max = 60) String name, int runTimeMins,

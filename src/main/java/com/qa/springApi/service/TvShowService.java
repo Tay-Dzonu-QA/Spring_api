@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.springApi.dto.TvShowDTO;
@@ -19,6 +20,7 @@ public class TvShowService {
 	private TvShowRepo repo;
 	private ModelMapper mapper;
 
+	@Autowired
 	public TvShowService(TvShowRepo repo, ModelMapper mapper) {
 		super();
 		this.repo = repo;
@@ -29,13 +31,13 @@ public class TvShowService {
 		return this.mapper.map(tvShow, TvShowDTO.class);
 	}
 
-	private TvShow mapFromDTO(TvShowDTO tvShowDTO) {
-		return this.mapper.map(tvShowDTO, TvShow.class);
-	}
+//	private TvShow mapFromDTO(TvShowDTO tvShowDTO) {
+//		return this.mapper.map(tvShowDTO, TvShow.class);
+//	}
 
-	public TvShowDTO create(TvShowDTO tvShowDTO) {
-		TvShow toSave = this.mapFromDTO(tvShowDTO);
-		TvShow saved = this.repo.save(toSave);
+	public TvShowDTO create(TvShow tvShow) {
+//		TvShow toSave = this.mapFromDTO(tvShowDTO);
+		TvShow saved = this.repo.save(tvShow);
 		return mapToDTO(saved);
 	}
 
@@ -50,8 +52,8 @@ public class TvShowService {
 
 	public TvShowDTO update(TvShowDTO tvShowDTO,Long id) {
 		TvShow toUpdate = this.repo.findById(id).orElseThrow(ChannelNotFoundException::new);
-		SAPIBeanUtils.mergeObject(tvShowDTO,toUpdate);
-		return this.mapToDTO(toUpdate);
+		SAPIBeanUtils.mergeNotNull(tvShowDTO,toUpdate);
+		return this.mapToDTO(this.repo.save(toUpdate));
 	}
 
 	public boolean delete(Long id) {
